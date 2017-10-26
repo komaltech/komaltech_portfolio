@@ -7,7 +7,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     autoprefixer = require('gulp-autoprefixer'),
     runSequence = require('run-sequence'),
-    sourcemaps = require('gulp-sourcemaps');
+    sourcemaps = require('gulp-sourcemaps'),
+    browserSync = require('browser-sync');
 
 gulp.task('default', function() {
     runSequence(
@@ -31,4 +32,19 @@ gulp.task('script', function() {
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./web/js/'))
+});
+
+
+gulp.task('stream', function() {
+    return watch('public/sass/**/*.sass', { ignoreInitial: false })
+        .pipe(gulp.dest('./web/css/'))
+});
+
+gulp.task('serve', function() {
+  browserSync.init({
+    server: "./"
+  });
+  gulp.watch("./public/sass/**/*.sass", ['style']).on('change', browserSync.reload);
+  gulp.watch("./public/js/**/*.js", ['script']).on('change', browserSync.reload);
+  gulp.watch("./pages/**/*.html").on('change', browserSync.reload);
 });

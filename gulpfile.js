@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    minifyCSS = require('gulp-minify-css'),
+    cssnano = require('gulp-cssnano'),
     cleanCSS = require('gulp-clean-css'),
     sass = require('gulp-sass'),
     less = require('gulp-less'),
@@ -35,6 +35,7 @@ gulp.task('style', function() {
     gulp.src('public/sass/base.sass')
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'compressed', errLogToConsole: true}).on('error', sass.logError))
+
     .pipe(cleanCSS())
     .pipe(concat('app.min.css'))
     // .pipe(autoprefixer())

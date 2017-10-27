@@ -10,6 +10,21 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     browserSync = require('browser-sync');
 
+    var browser_support = [
+                        'last 2 versions', 
+                        '> 5%', 
+                        'Firefox ESR',
+                        "ie >= 10",
+                        "ie_mob >= 10",
+                        "ff >= 30",
+                        "chrome >= 34",
+                        "safari >= 7",
+                        "opera >= 23",
+                        "ios >= 7",
+                        "android >= 4.4",
+                        "bb >= 10"
+                      ];
+
 gulp.task('default', function() {
     runSequence(
         'semantic'
@@ -19,7 +34,7 @@ gulp.task('default', function() {
 gulp.task('style', function() {
     gulp.src('public/sass/base.sass')
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass({outputStyle: 'compressed', errLogToConsole: true}).on('error', sass.logError))
     .pipe(cleanCSS())
     .pipe(concat('app.min.css'))
     // .pipe(autoprefixer())

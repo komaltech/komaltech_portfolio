@@ -10,6 +10,21 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     browserSync = require('browser-sync');
 
+    var browser_support = [
+                        'last 2 versions', 
+                        '> 5%', 
+                        'Firefox ESR',
+                        "ie >= 10",
+                        "ie_mob >= 10",
+                        "ff >= 30",
+                        "chrome >= 34",
+                        "safari >= 7",
+                        "opera >= 23",
+                        "ios >= 7",
+                        "android >= 4.4",
+                        "bb >= 10"
+                      ];
+
 gulp.task('default', function() {
     runSequence(
         'semantic'

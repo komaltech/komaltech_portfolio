@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    jshint        = require('gulp-jshint'),
     autoprefixer = require('gulp-autoprefixer'),
     runSequence = require('run-sequence'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -46,6 +47,8 @@ gulp.task('style', function() {
 gulp.task('script', function() {
     gulp.src('public/js/global.js')
     .pipe(concat('app.min.js'))
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'))
     .pipe(uglify())
     .pipe(gulp.dest('./web/js/'))
 });
